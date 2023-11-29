@@ -1,37 +1,17 @@
 <testsuites>
 	<testsuite name="AllTests" tests="9">
 		<testcase classname="AllTests" name="testConstructor"/>
-		<testcase classname="AllTests" name="testInsertHead_1Element">
-			<failure message="Test.cpp:57 testInsertHead_1Element: expectedSize == actualSize expected:	1	but was:	0	">
-testInsertHead_1Element: expectedSize == actualSize expected:	1	but was:	0	
-			</failure>
-		</testcase>
+		<testcase classname="AllTests" name="testInsertHead_1Element"/>
 		<testcase classname="AllTests" name="testInsertHead_5Element">
-			<failure message="Test.cpp:106 testInsertHead_5Element: expectedSize == actualSize expected:	5	but was:	0	">
-testInsertHead_5Element: expectedSize == actualSize expected:	5	but was:	0	
+			<failure message="Test.cpp:123 testInsertHead_5Element: expectedCheck == actualCheck expected:	1	but was:	0	">
+testInsertHead_5Element: expectedCheck == actualCheck expected:	1	but was:	0	
 			</failure>
 		</testcase>
-		<testcase classname="AllTests" name="testInsertTail_1Element">
-			<failure message="Test.cpp:151 testInsertTail_1Element: expectedSize == actualSize expected:	1	but was:	0	">
-testInsertTail_1Element: expectedSize == actualSize expected:	1	but was:	0	
-			</failure>
-		</testcase>
-		<testcase classname="AllTests" name="testInsertTail_5Element">
-			<failure message="Test.cpp:199 testInsertTail_5Element: expectedSize == actualSize expected:	5	but was:	0	">
-testInsertTail_5Element: expectedSize == actualSize expected:	5	but was:	0	
-			</failure>
-		</testcase>
+		<testcase classname="AllTests" name="testInsertTail_1Element"/>
+		<testcase classname="AllTests" name="testInsertTail_5Element"/>
 		<testcase classname="AllTests" name="testRemoveHead_1Element"/>
-		<testcase classname="AllTests" name="testRemoveHead_5Element">
-			<failure message="Test.cpp:268 testRemoveHead_5Element: expectedSize == actualSize expected:	4	but was:	0	">
-testRemoveHead_5Element: expectedSize == actualSize expected:	4	but was:	0	
-			</failure>
-		</testcase>
+		<testcase classname="AllTests" name="testRemoveHead_5Element"/>
 		<testcase classname="AllTests" name="testRemoveTail_1Element"/>
-		<testcase classname="AllTests" name="testRemoveTail_5Element">
-			<failure message="Test.cpp:333 testRemoveTail_5Element: expectedSize == actualSize expected:	4	but was:	0	">
-testRemoveTail_5Element: expectedSize == actualSize expected:	4	but was:	0	
-			</failure>
-		</testcase>
+		<testcase classname="AllTests" name="testRemoveTail_5Element"/>
 	</testsuite>
 </testsuites>

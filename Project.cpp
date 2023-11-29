@@ -52,32 +52,17 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    char input = myGM->getInput();
-    if(input != '\0') 
-    {
-        switch(input)
-        {                      
-            case ' ':  
-                myGM->setExitTrue();
-                break;
-            default:
-                break;
-        }
-        myGM->clearInput();
-    }
+    myGM->getInput();
 
-    if (input == 'd' || input == 'D') {
-        myGM->incrementScore();
-    }
-    if (input == '1') {
-        myGM->setLoseFlag();
-    }
-    myGM->clearInput();
 }   
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
+    myPlayer->updatePlayerDir();
+
+    myGM->clearInput();
+
 }
 
 void DrawScreen(void)
@@ -133,8 +118,6 @@ void CleanUp(void)
   
     delete myGM;
     delete myPlayer;
-    myGM = nullptr;
-    myPlayer = nullptr;
 
     MacUILib_uninit();
 }
