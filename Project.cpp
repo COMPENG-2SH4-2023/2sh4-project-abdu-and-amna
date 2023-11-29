@@ -1,6 +1,7 @@
 #include <iostream> 
 #include "MacUILib.h"
 #include "objPos.h"
+#include "objPosArrayList.h"
 #include "GameMechs.h"
 #include "Player.h"
 
@@ -24,7 +25,6 @@ void CleanUp(void);
 
 int main(void)
 {
-
     Initialize();
 
     while(myGM->getExitFlagStatus() == false)  
@@ -42,6 +42,7 @@ int main(void)
 
 void Initialize(void)
 {
+    srand(time(NULL));
     MacUILib_init();
     MacUILib_clearScreen();
 
@@ -59,7 +60,7 @@ void GetInput(void)
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
-    myPlayer->updatePlayerDir();
+    myPlayer->movePlayer();
 
     myGM->clearInput();
 
@@ -68,9 +69,16 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+    char input = myGM->getInput();
 
     objPos tempPos;
-    myPlayer->getPlayerPos(tempPos);  
+    objPos foodPOS;
+    myPlayer->getPlayerPos(tempPos); 
+    if (input == '=')
+    {
+        myGM ->generateFood(tempPos);
+        myGM->getFoodPos(foodPOS);
+    }
 
     MacUILib_printf("BoardSize: %d,%d, Player Pos: <%d, %d> with %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempPos.x, tempPos.y, tempPos.symbol);
     int i,j;
@@ -90,6 +98,10 @@ void DrawScreen(void)
             {
                 printf("%c", tempPos.symbol);
             }
+            else if (i == foodPOS.y && j == foodPOS.x)
+            {
+                printf("%c", foodPOS.symbol);
+            }
             else
             {
                 printf(" "); //everything else remains empty
@@ -98,11 +110,14 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
+
     if(myGM->getLoseFlagStatus() == true)
     {
         MacUILib_printf("You Lost!\n");
         myGM -> setExitTrue();
     }
+    MacUILib_printf("Food Pos X: %d\n", foodPOS.x);
+    MacUILib_printf("Food Pos Y: %d\n", foodPOS.y);
 
 }
 

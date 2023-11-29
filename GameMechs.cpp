@@ -12,7 +12,7 @@ GameMechs::GameMechs()
     boardSizeX = 30;
     boardSizeY = 15;
 
-    //foodPos.setObjPos(-1, -1, 'o');
+    foodPos.setObjPos(-1, -1, 'o');
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -24,7 +24,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeX = boardX;
     boardSizeY = boardY;
     
-    //foodPos.setObjPos(-1, -1, 'o');
+    foodPos.setObjPos(-1, -1, 'o');
 }
 
 // do you need a destructor?
@@ -44,6 +44,9 @@ char GameMechs::getInput()
     if (MacUILib_hasChar())
     {
         input=MacUILib_getChar();
+        if(input == 27){
+            setExitTrue();
+        }
     }
     return input;
 }
@@ -96,27 +99,31 @@ void GameMechs::incrementScore()
 
 void GameMechs::generateFood(objPos blockOFF)
 {
-    // genereate random x and y coord, and make sure they are NOT border or blockOFF pos.
-
-    // check x and y against 0 and baordsizex/y
-
-    // remember, in objPos class you have an is PosEqual() method. use this instead of compaying element-by-element
-    // for your convenience
-    /*int xPos, yPos;
-
-    while (1)
+    if (foodPos.x == -1 && foodPos.y == -1)
     {
-        xPos = rand() % (boardSizeX - 2) + 1;
-        yPos = rand() % (boardSizeY - 2) + 1;
+        int flag = 0;
 
-        if (xPos == blockOFF.x && yPos == blockOFF.y || xPos>= boardSizeX || xPos <= 0 || yPos >= boardSizeY || yPos <= 0) {
-                continue; 
+        while (flag == 0)
+        {
+            int x = rand() % (boardSizeX - 2) + 1;
+            int y = rand() % (boardSizeY - 2) + 1;
+
+            if (x == blockOFF.x && y == blockOFF.y)
+            {
+                continue;
             }
+
+            foodPos.setObjPos(x, y, 'o');
+            flag = 1;
+        }
+
     }
-    foodPos.setObjPos(xPos, yPos, 'o');*/
+    
 }
+    
+
 
 void GameMechs::getFoodPos(objPos &returnPos)
 {
-
+    returnPos.setObjPos(foodPos.x, foodPos.y, 'o');
 }

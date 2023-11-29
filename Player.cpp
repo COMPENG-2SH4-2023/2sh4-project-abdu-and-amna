@@ -48,104 +48,52 @@ void Player::updatePlayerDir()
             break;
         case 'd':
             if(myDir != RIGHT && myDir != LEFT)
-                myDir = DOWN;
+                myDir = RIGHT;
             break;
-
+        
+        
         default:
             break;
     }
-    /*if(input != '\0') 
-    {
-        switch(input)
-        {                      
-            case ' ':  
-                mainGameMechsRef->setExitTrue();
-                break;
-            default:
-                break;
-        }
-        mainGameMechsRef->clearInput();
-    }
-
-    if (input == 'd' || input == 'D') {
-        mainGameMechsRef->incrementScore();
-    }
-    if (input == '1') {
-        mainGameMechsRef->setLoseFlag();
-    }     */   
+    mainGameMechsRef->clearInput();
 }
 
 void Player::movePlayer()
 {
-    switch (myDir)
+    switch(myDir)
     {
         case UP:
             playerPos.y--;
-            break;
-        case LEFT:
-            playerPos.x--;
-            break;
-        case DOWN:
-            playerPos.y++;
-            break;
-        case RIGHT:
-            playerPos.x++;
-            break;
-        default:
-            // No movement in other cases
-            break;
-    }
-
-    if (playerPos.x < 1)
-        playerPos.x = mainGameMechsRef->getBoardSizeX() - 2;
-    else if (playerPos.x >= mainGameMechsRef->getBoardSizeX() - 1)
-        playerPos.x = 1;
-
-    if (playerPos.y < 1)
-        playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
-    else if (playerPos.y >= mainGameMechsRef->getBoardSizeY() - 1)
-        playerPos.y = 1;
-
-
-    
-    /*switch(myDir)
-    {
-        case UP:
-            returnPos.setObjPos(playerPos.x, playerPos.y--, playerPos.symbol);
-            
             if (playerPos.y <= 0)
             {
                 playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
             }
             break;  
         case LEFT:
-            returnPos.setObjPos(playerPos.x--, playerPos.y, playerPos.symbol);
+            playerPos.x--;
             if (playerPos.x <= 0)
             {
                 playerPos.x =  mainGameMechsRef->getBoardSizeX() - 2;
             }
             break;  
         case DOWN:
-            returnPos.setObjPos(playerPos.x, playerPos.y++, playerPos.symbol);
+            playerPos.y++;
             if (playerPos.y >= mainGameMechsRef->getBoardSizeY() - 1)
             {
                 playerPos.y = 1;
             }
             break;  
         case RIGHT:
-            returnPos.setObjPos(playerPos.x++, playerPos.y, playerPos.symbol);
+            playerPos.x++;
             if (playerPos.x >= mainGameMechsRef->getBoardSizeX())
             {
                 playerPos.x =  1;
             }
             break;    
         default:
-            returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
             break;
             
-        }*/
-    
-    
+        }
 
 }
 
