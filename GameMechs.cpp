@@ -99,26 +99,22 @@ void GameMechs::incrementScore()
 
 void GameMechs::generateFood(objPos blockOFF)
 {
-    if (foodPos.x == -1 && foodPos.y == -1)
+    int flag = 0;
+
+    while (flag == 0)
     {
-        int flag = 0;
+        int x = rand() % (boardSizeX - 2) + 1;
+        int y = rand() % (boardSizeY - 2) + 1;
 
-        while (flag == 0)
+        if (x == blockOFF.x && y == blockOFF.y)
         {
-            int x = rand() % (boardSizeX - 2) + 1;
-            int y = rand() % (boardSizeY - 2) + 1;
-
-            if (x == blockOFF.x && y == blockOFF.y)
-            {
-                continue;
-            }
-
-            foodPos.setObjPos(x, y, 'o');
-            flag = 1;
+            continue;
         }
 
-    }
-    
+        foodPos.setObjPos(x, y, 'o');
+        flag = 1;
+        
+    }       
 }
     
 

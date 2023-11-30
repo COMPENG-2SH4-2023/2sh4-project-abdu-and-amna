@@ -64,6 +64,19 @@ void RunLogic(void)
 
     myGM->clearInput();
 
+    objPos tempPos;
+    objPos foodPOS;
+    myPlayer->getPlayerPos(tempPos); 
+    myGM->getFoodPos(foodPOS);
+
+    if (foodPOS.x == -1 && foodPOS.y == -1){
+        myGM -> generateFood(tempPos);
+    }
+    else if(tempPos.x == foodPOS.x && tempPos.y == foodPOS.y){
+        myGM -> generateFood(tempPos);
+        myGM -> incrementScore();
+    }
+
 }
 
 void DrawScreen(void)
@@ -74,11 +87,7 @@ void DrawScreen(void)
     objPos tempPos;
     objPos foodPOS;
     myPlayer->getPlayerPos(tempPos); 
-    if (input == '=')
-    {
-        myGM ->generateFood(tempPos);
-        myGM->getFoodPos(foodPOS);
-    }
+    myGM->getFoodPos(foodPOS);
 
     MacUILib_printf("BoardSize: %d,%d, Player Pos: <%d, %d> with %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempPos.x, tempPos.y, tempPos.symbol);
     int i,j;
@@ -110,15 +119,14 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
+    MacUILib_printf("player x y: %d %d", tempPos.x, tempPos.y);
+    MacUILib_printf("food x y: %d %d", foodPOS.x, foodPOS.y);
 
     if(myGM->getLoseFlagStatus() == true)
     {
         MacUILib_printf("You Lost!\n");
         myGM -> setExitTrue();
     }
-    MacUILib_printf("Food Pos X: %d\n", foodPOS.x);
-    MacUILib_printf("Food Pos Y: %d\n", foodPOS.y);
-
 }
 
 void LoopDelay(void)
