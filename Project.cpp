@@ -49,6 +49,22 @@ void Initialize(void)
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
 
+
+    objPos tempPos(1, 1, 'o');
+    myGM -> generateFood(tempPos);
+
+    //objPos foodPos;
+    //myPlayer->getPlayerPos(tempPos); 
+    //myGM->getFoodPos(foodPos);
+
+    /*if (foodPos.x == -1 && foodPos.y == -1){
+        myGM -> generateFood(tempPos);
+    }
+    else if(tempPos.x == foodPos.x && tempPos.y == foodPos.y){
+        myGM -> generateFood(tempPos);
+        myGM -> incrementScore();
+    }*/
+
 }
 
 void GetInput(void)
@@ -64,37 +80,41 @@ void RunLogic(void)
 
     myGM->clearInput();
 
-    objPos tempPos;
-    objPos foodPOS;
-    myPlayer->getPlayerPos(tempPos); 
-    myGM->getFoodPos(foodPOS);
-
-    if (foodPOS.x == -1 && foodPOS.y == -1){
-        myGM -> generateFood(tempPos);
-    }
-    else if(tempPos.x == foodPOS.x && tempPos.y == foodPOS.y){
-        myGM -> generateFood(tempPos);
-        myGM -> incrementScore();
-    }
 
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    char input = myGM->getInput();
 
+    bool drawn;
+
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempPos;
-    objPos foodPOS;
-    myPlayer->getPlayerPos(tempPos); 
-    myGM->getFoodPos(foodPOS);
+    
+    objPos foodPos;
+    myGM->getFoodPos(foodPos);
 
-    MacUILib_printf("BoardSize: %d,%d, Player Pos: <%d, %d> with %c\n", myGM->getBoardSizeX(), myGM->getBoardSizeY(), tempPos.x, tempPos.y, tempPos.symbol);
     int i,j;
     for(i=0; i<myGM->getBoardSizeY(); i++) 
     {
         for(j=0; j<myGM->getBoardSizeX(); j++) 
         {
+            drawn = false;
+
+            for(int k = 0; k < playerBody->getSize(); k++)
+            {
+                playerBody->getElement(tempPos, k);
+                if(tempPos.x == j && tempPos.y == i)
+                {
+                    MacUILib_printf("%c", tempPos.symbol);
+                    drawn = true;
+                    break;
+                }
+            }
+
+            if(drawn) continue;
+
             if(i==0 || i==myGM->getBoardSizeY()-1) //prints border - vertical axis
             {
                 MacUILib_printf("#");
@@ -103,13 +123,9 @@ void DrawScreen(void)
             {
                 MacUILib_printf("#");
             }
-            else if (i==tempPos.y && j==tempPos.x) // prints player at player position
+            else if (i == foodPos.y && j == foodPos.x)
             {
-                printf("%c", tempPos.symbol);
-            }
-            else if (i == foodPOS.y && j == foodPOS.x)
-            {
-                printf("%c", foodPOS.symbol);
+                printf("%c", foodPos.symbol);
             }
             else
             {
@@ -119,8 +135,13 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
-    MacUILib_printf("player x y: %d %d", tempPos.x, tempPos.y);
-    MacUILib_printf("food x y: %d %d", foodPOS.x, foodPOS.y);
+    MacUILib_printf("food x y: %d %d", foodPos.x, foodPos.y);
+    MacUILib_printf("Player Positions:\n");
+    for(int l = 0; l <playerBody->getSize(); l ++)
+    {
+        playerBody->getElement(tempPos, l);
+        MacUILib_printf("<%d, %d> ", tempPos.x, tempPos.y);
+    }
 
     if(myGM->getLoseFlagStatus() == true)
     {
