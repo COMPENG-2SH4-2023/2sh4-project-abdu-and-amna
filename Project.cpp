@@ -49,10 +49,6 @@ void Initialize(void)
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
 
-
-    objPos tempPos(1, 1, 'o');
-    myGM -> generateFood(tempPos);
-
     //objPos foodPos;
     //myPlayer->getPlayerPos(tempPos); 
     //myGM->getFoodPos(foodPos);
