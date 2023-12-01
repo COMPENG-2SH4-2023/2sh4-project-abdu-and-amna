@@ -50,9 +50,11 @@ void Initialize(void)
     myPlayer = new Player(myGM);
 
 
-    objPos tempPos(1, 1, 'o');
-    myGM -> generateFood(tempPos);
-
+    //this is a makeshift setup so i dont have to touch generateitem yet
+    // you need to do this yourself
+    //objPos tempPos(1, 1, 'o');
+    //myGM -> generateFood(tempPos);
+    myGM->generateFood(myPlayer->getPlayerPos());
     //objPos foodPos;
     //myPlayer->getPlayerPos(tempPos); 
     //myGM->getFoodPos(foodPos);
@@ -91,6 +93,7 @@ void DrawScreen(void)
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempPos;
+    
     
     objPos foodPos;
     myGM->getFoodPos(foodPos);

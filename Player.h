@@ -22,6 +22,24 @@ class Player
         objPosArrayList* getPlayerPos();
         void updatePlayerDir();
         void movePlayer();
+        //bool checkFoodConsumption():
+        //void increasePlayerLength();
+        //Need more actions in here:
+        // After inserting the head but before removing the tail
+        // - check if new head position collides with food
+        // - if yes, increment the score in GM, generate new food
+        //   and do not remove tail
+        // otherwise remove tail nad move on
+
+
+        //lastly, add self collision check
+        // - if self collided
+        // set loseFlag and exitFlag both to true (through GM)
+        // this will break the program loop and end the game
+
+        // - if ending, you need to differentiate the end game state
+        // LOST - display LOST message
+        // otherwise, display endgame message only
 
     private:
         objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       

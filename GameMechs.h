@@ -50,8 +50,11 @@ class GameMechs
         int getScore();
         void incrementScore();
 
-        void generateFood(objPos blockOFF); // you need to upgrade this
+        void generateFood(objPosArrayList* playerBody); // you need to upgrade this
         void getFoodPos(objPos &returnPos);
+        //Need to accept the player body array list
+        // go through each array list element to make sure they are all
+        // blocked off from random food generation
       
 
 };
