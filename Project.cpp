@@ -49,24 +49,7 @@ void Initialize(void)
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
 
-
-    //this is a makeshift setup so i dont have to touch generateitem yet
-    // you need to do this yourself
-    //objPos tempPos(1, 1, 'o');
-    //myGM -> generateFood(tempPos);
     myGM->generateFood(myPlayer->getPlayerPos());
-    //objPos foodPos;
-    //myPlayer->getPlayerPos(tempPos); 
-    //myGM->getFoodPos(foodPos);
-
-    /*if (foodPos.x == -1 && foodPos.y == -1){
-        myGM -> generateFood(tempPos);
-    }
-    else if(tempPos.x == foodPos.x && tempPos.y == foodPos.y){
-        myGM -> generateFood(tempPos);
-        myGM -> incrementScore();
-    }*/
-
 }
 
 void GetInput(void)
