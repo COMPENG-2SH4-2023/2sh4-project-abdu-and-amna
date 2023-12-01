@@ -65,6 +65,10 @@ void RunLogic(void)
 
     myGM->clearInput();
 
+    /*if(myPlayer->checkFoodConsumption()){
+        myPlayer->increasePlayerLength();
+    }*/
+
 
 }
 
