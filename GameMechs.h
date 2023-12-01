@@ -12,12 +12,6 @@ using namespace std;
 
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     private:
         char input;
         bool exitFlag;
@@ -50,13 +44,8 @@ class GameMechs
         int getScore();
         void incrementScore();
 
-        void generateFood(objPosArrayList* playerBody); // you need to upgrade this
+        void generateFood(objPosArrayList* playerBody);
         void getFoodPos(objPos &returnPos);
-        //Need to accept the player body array list
-        // go through each array list element to make sure they are all
-        // blocked off from random food generation
-      
-
 };
 
 #endif

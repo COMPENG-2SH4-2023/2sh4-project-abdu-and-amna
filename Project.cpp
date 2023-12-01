@@ -55,7 +55,6 @@ void Initialize(void)
 void GetInput(void)
 {
     myGM->getInput();
-
 }   
 
 void RunLogic(void)
@@ -99,11 +98,11 @@ void DrawScreen(void)
 
             if(drawn) continue;
 
-            if(i==0 || i==myGM->getBoardSizeY()-1) //prints border - vertical axis
+            if(i==0 || i==myGM->getBoardSizeY()-1)
             {
                 MacUILib_printf("#");
             }
-            else if (j==0||j==myGM->getBoardSizeX()-1) //prints border - horizontal axis
+            else if (j==0||j==myGM->getBoardSizeX()-1)
             {
                 MacUILib_printf("#");
             }
@@ -113,7 +112,7 @@ void DrawScreen(void)
             }
             else
             {
-                printf(" "); //everything else remains empty
+                printf(" ");
             }
         }
         printf("\n");
@@ -129,14 +128,14 @@ void DrawScreen(void)
 
     if(myGM->getLoseFlagStatus() == true)
     {
-        MacUILib_printf("You Lost!\n");
+        MacUILib_printf("You Lost! Please Try Again.\n");
         myGM -> setExitTrue();
     }
 }
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    MacUILib_Delay(DELAY_CONST);
 }
 
 

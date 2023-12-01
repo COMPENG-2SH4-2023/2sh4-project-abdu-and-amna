@@ -6,7 +6,6 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    // more actions to be included
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
     playerPosList = new objPosArrayList();
@@ -102,7 +101,6 @@ void Player::movePlayer()
         if (headPos.x == bodyPos.x && headPos.y == bodyPos.y)
         {
             mainGameMechsRef->setLoseFlag();
-            mainGameMechsRef->setExitTrue();
             return;
         }
     }
