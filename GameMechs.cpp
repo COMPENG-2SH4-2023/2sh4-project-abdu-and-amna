@@ -99,7 +99,6 @@ void GameMechs::incrementScore()
 
 void GameMechs::generateFood(objPosArrayList* playerBody)
 {
-   objPos tempPos;
     int flag = 0;
     bool overlap = false;
 
@@ -109,6 +108,7 @@ void GameMechs::generateFood(objPosArrayList* playerBody)
 
         for (int k = 0; k < playerBody->getSize(); k++)
         {
+            objPos tempPos;
             playerBody->getElement(tempPos, k);
             if (x == tempPos.x && y == tempPos.y)
             {
