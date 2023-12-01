@@ -22,6 +22,8 @@ class Player
         objPosArrayList* getPlayerPos();
         void updatePlayerDir();
         void movePlayer();
+        bool checkFoodConsumption();
+        void increasePlayerLength();
 
     private:
         objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       

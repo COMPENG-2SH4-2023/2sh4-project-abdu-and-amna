@@ -97,8 +97,9 @@ void GameMechs::incrementScore()
     score ++;
 }
 
-void GameMechs::generateFood(objPos blockOFF)
+void GameMechs::generateFood(objPosArrayList& playerPosList)
 {
+    
     int flag = 0;
 
     while (flag == 0)
@@ -106,14 +107,18 @@ void GameMechs::generateFood(objPos blockOFF)
         int x = rand() % (boardSizeX - 2) + 1;
         int y = rand() % (boardSizeY - 2) + 1;
 
-        if (x == blockOFF.x && y == blockOFF.y)
-        {
-            continue;
+        int check = 0;
+        for (const auto& playerPos : playerPosList){
+            if(x == playerPosList.x && y == playerPosList.y){
+                check = 1;
+                break;
+            }
         }
 
-        foodPos.setObjPos(x, y, 'o');
-        flag = 1;
-        
+        if(check == 0){
+            foodPos.setObjPos(x, y, 'o');
+            flag = 1;    
+        }
     }       
 }
     
