@@ -64,12 +64,6 @@ void RunLogic(void)
     myPlayer->movePlayer();
 
     myGM->clearInput();
-
-    /*if(myPlayer->checkFoodConsumption()){
-        myPlayer->increasePlayerLength();
-    }*/
-
-
 }
 
 void DrawScreen(void)
@@ -148,10 +142,12 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+     
   
     delete myGM;
     delete myPlayer;
+    
 
     MacUILib_uninit();
 }
