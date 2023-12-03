@@ -49,18 +49,7 @@ void Initialize(void)
     myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
 
-    //objPos foodPos;
-    //myPlayer->getPlayerPos(tempPos); 
-    //myGM->getFoodPos(foodPos);
-
-    /*if (foodPos.x == -1 && foodPos.y == -1){
-        myGM -> generateFood(tempPos);
-    }
-    else if(tempPos.x == foodPos.x && tempPos.y == foodPos.y){
-        myGM -> generateFood(tempPos);
-        myGM -> incrementScore();
-    }*/
-
+    myGM->generateFood(myPlayer->getPlayerPos());
 }
 
 void GetInput(void)
@@ -76,11 +65,6 @@ void RunLogic(void)
 
     myGM->clearInput();
 
-    if(myPlayer->checkFoodConsumption()){
-        myPlayer->increasePlayerLength();
-    }
-
-
 }
 
 void DrawScreen(void)
@@ -91,6 +75,7 @@ void DrawScreen(void)
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     objPos tempPos;
+    
     
     objPos foodPos;
     myGM->getFoodPos(foodPos);
@@ -135,13 +120,13 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
-    MacUILib_printf("food x y: %d %d", foodPos.x, foodPos.y);
-    MacUILib_printf("Player Positions:\n");
-    for(int l = 0; l <playerBody->getSize(); l ++)
-    {
-        playerBody->getElement(tempPos, l);
-        MacUILib_printf("<%d, %d> ", tempPos.x, tempPos.y);
-    }
+    //MacUILib_printf("food x y: %d %d", foodPos.x, foodPos.y);
+    //MacUILib_printf("Player Positions:\n");
+    //for(int l = 0; l <playerBody->getSize(); l ++)
+    //{
+    //    playerBody->getElement(tempPos, l);
+    //    MacUILib_printf("<%d, %d> ", tempPos.x, tempPos.y);
+    //}
 
     if(myGM->getLoseFlagStatus() == true)
     {

@@ -16,7 +16,6 @@ Player::Player(GameMechs* thisGMRef)
 
 }
 
-
 Player::~Player()
 {
     delete playerPosList;
@@ -26,9 +25,6 @@ objPosArrayList* Player::getPlayerPos()
 {
     return playerPosList;
 }
-
-
-
 
 void Player::updatePlayerDir()
 {
@@ -66,7 +62,6 @@ void Player::movePlayer()
 {
     objPos headPos;
     playerPosList->getHeadElement(headPos);
-
     switch(myDir)
     {
         
@@ -101,35 +96,63 @@ void Player::movePlayer()
         case STOP:    
         default:
             break;
-        } 
+    }
+    
+    //if (checkSelfCollision()){
+    //    mainGameMechsRef->setLoseFlag();
+    //}
 
-        playerPosList->insertHead(headPos);   
-        playerPosList->removeTail();  
+    if (checkFoodConsumption())
+    {
+        increasePlayerLength();
+        mainGameMechsRef->incrementScore();
+        mainGameMechsRef->generateFood(playerPosList);
+    }
+    else
+    {
+        playerPosList->insertHead(headPos);
+        playerPosList->removeTail();
+    }
 }
 
-bool Player::checkFoodConsumption(){
-
+bool Player::checkFoodConsumption()
+{
     objPos headPos;
     playerPosList->getHeadElement(headPos);
+
     objPos foodPos;
     mainGameMechsRef->getFoodPos(foodPos);
 
-    if(foodPos.x == headPos.x && foodPos.y == headPos.y){
+    if (headPos.x == foodPos.x && headPos.y == foodPos.y)
+    {
         return true;
     }
-    else{
-        return false;
-    }
+
+    return false;
 
 }
 
-void Player::increasePlayerLength(){
+void Player::increasePlayerLength() {
+    objPos headPos;
+    playerPosList->getHeadElement(headPos);
+
+    playerPosList->insertTail(headPos);
+    mainGameMechsRef->generateFood(playerPosList);
+}
+
+bool Player::checkSelfCollision() {
     
     objPos headPos;
     playerPosList->getHeadElement(headPos);
     
-    playerPosList->insertHead(headPos);
-    mainGameMechsRef->generateFood(playerPosList);
+    for (int k = 1; k < playerPosList->getSize(); k++)
+    {
+        objPos bodyPos;
+        playerPosList->getElement(bodyPos, k);
+        if (headPos.x == bodyPos.x && headPos.y == bodyPos.y)
+        {
+            return true;
+        }
+    }
+    return false;
 }
-
-

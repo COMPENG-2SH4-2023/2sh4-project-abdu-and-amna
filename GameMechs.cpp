@@ -97,34 +97,34 @@ void GameMechs::incrementScore()
     score ++;
 }
 
-void GameMechs::generateFood(objPosArrayList* playerPosList)
+void GameMechs::generateFood(objPosArrayList* playerBody)
 {
-    
     int flag = 0;
+    bool overlap = false;
 
-    while (flag == 0)
-    {
+    while (flag == 0) {
         int x = rand() % (boardSizeX - 2) + 1;
         int y = rand() % (boardSizeY - 2) + 1;
 
-        int check = 0;
-        objPos checkPos;
-        for (int i = 0; i < playerPosList->getSize(); i++){
-            playerPosList->getElement(checkPos, i);
-            if(x == checkPos.x == checkPos.y){
-                check = 1;
+        for (int k = 0; k < playerBody->getSize(); k++)
+        {
+            objPos tempPos;
+            playerBody->getElement(tempPos, k);
+            if (x == tempPos.x && y == tempPos.y)
+            {
+                overlap = true;
                 break;
             }
         }
 
-        if(check == 0){
+        if (!overlap)
+        {
             foodPos.setObjPos(x, y, 'o');
-            flag = 1;    
+            flag = 1;
         }
-    }       
+    } 
 }
     
-
 
 void GameMechs::getFoodPos(objPos &returnPos)
 {
