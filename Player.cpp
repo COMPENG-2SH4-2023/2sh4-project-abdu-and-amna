@@ -7,7 +7,6 @@ Player::Player(GameMechs* thisGMRef, Food* food)
     foodControl = food;
     myDir = STOP;
 
-    // more actions to be included
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
     playerPosList = new objPosArrayList();

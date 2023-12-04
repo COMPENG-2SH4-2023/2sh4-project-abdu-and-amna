@@ -1,7 +1,6 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
-//think about where to seed the RNG
 
 GameMechs::GameMechs()
 {
@@ -27,7 +26,6 @@ GameMechs::GameMechs(int boardX, int boardY)
     foodPos.setObjPos(-1, -1, 'o');
 }
 
-// do you need a destructor?
 GameMechs::~GameMechs()
 {
 

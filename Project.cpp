@@ -57,7 +57,6 @@ void Initialize(void)
 void GetInput(void)
 {
     myGM->getInput();
-
 }   
 
 void RunLogic(void)
@@ -108,24 +107,23 @@ void DrawScreen(void)
                 if(foodPos.x == j && foodPos.y == i){
                     MacUILib_printf("%c", foodPos.symbol);
                     used = true;
-
                     break;
                 }
             }
 
             if(used) continue;
 
-            if(i==0 || i==myGM->getBoardSizeY()-1) //prints border - vertical axis
+            if(i==0 || i==myGM->getBoardSizeY()-1)
             {
                 MacUILib_printf("#");
             }
-            else if (j==0||j==myGM->getBoardSizeX()-1) //prints border - horizontal axis
+            else if (j==0||j==myGM->getBoardSizeX()-1)
             {
                 MacUILib_printf("#");
             }
             else
             {
-                printf(" "); //everything else remains empty
+                printf(" ");
             }
         }
         printf("\n");
@@ -135,16 +133,18 @@ void DrawScreen(void)
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    MacUILib_Delay(DELAY_CONST);
 }
 
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();
+     
   
     delete myGM;
     delete myPlayer;
+    
 
     MacUILib_uninit();
 }

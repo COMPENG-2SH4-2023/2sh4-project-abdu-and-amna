@@ -12,12 +12,6 @@ using namespace std;
 
 class GameMechs
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     private:
         char input;
         bool exitFlag;
