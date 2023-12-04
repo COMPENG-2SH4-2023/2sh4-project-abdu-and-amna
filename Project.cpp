@@ -123,11 +123,10 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
-
     if(myGM->getLoseFlagStatus() == true)
     {
         MacUILib_clearScreen();
-        MacUILib_printf("\n\n\tYou Lost! Please Try Again.\n");
+        MacUILib_printf("\n\n\tYou Lost! Please try again.\n");
         myGM -> setExitTrue();
     }
 }
@@ -139,10 +138,7 @@ void LoopDelay(void)
 
 
 void CleanUp(void)
-{
-    MacUILib_clearScreen();
-     
-  
+{  
     delete myGM;
     delete myPlayer;
     
