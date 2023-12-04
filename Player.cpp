@@ -1,9 +1,10 @@
 #include "Player.h"
 #include "MacUILib.h"
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* food)
 {
     mainGameMechsRef = thisGMRef;
+    foodControl = food;
     myDir = STOP;
 
     // more actions to be included
@@ -11,9 +12,7 @@ Player::Player(GameMechs* thisGMRef)
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX() / 2, mainGameMechsRef->getBoardSizeY() / 2, '*');
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-    mainGameMechsRef->generateFood(playerPosList);
-
-
+    foodControl->generateFood(playerPosList);
 }
 
 Player::~Player()
@@ -28,7 +27,6 @@ objPosArrayList* Player::getPlayerPos()
 
 void Player::updatePlayerDir()
 {
-
     char input = mainGameMechsRef->getInput();
 
     // PPA3 input processing logic
@@ -55,6 +53,7 @@ void Player::updatePlayerDir()
         default:
             break;
     }
+    //MacUILib_printf(input);
     mainGameMechsRef->clearInput();
 }
 
@@ -62,9 +61,17 @@ void Player::movePlayer()
 {
     objPos headPos;
     playerPosList->getHeadElement(headPos);
+    if(checkSelfCollision()){
+        mainGameMechsRef->setLoseFlag();
+    }
+    int num;
+    if (checkFoodConsumption(num))
+    {
+        foodControl->generateFood(playerPosList);
+        specialCharacterCases(num);
+    }
     switch(myDir)
     {
-        
         case UP:
             headPos.y--;
             if (headPos.y <= 0)
@@ -88,7 +95,7 @@ void Player::movePlayer()
             break;  
         case RIGHT:
             headPos.x++;
-            if (headPos.x >= mainGameMechsRef->getBoardSizeX())
+            if (headPos.x >= mainGameMechsRef->getBoardSizeX() - 1)
             {
                 headPos.x =  1;
             }
@@ -97,51 +104,35 @@ void Player::movePlayer()
         default:
             break;
     }
-    
-    //if (checkSelfCollision()){
-    //    mainGameMechsRef->setLoseFlag();
-    //}
 
-    if (checkFoodConsumption())
-    {
-        increasePlayerLength();
-        mainGameMechsRef->incrementScore();
-        mainGameMechsRef->generateFood(playerPosList);
-    }
-    else
-    {
-        playerPosList->insertHead(headPos);
-        playerPosList->removeTail();
-    }
+    playerPosList->insertHead(headPos);
+    playerPosList->removeTail();
 }
 
-bool Player::checkFoodConsumption()
+bool Player::checkFoodConsumption(int &num)
 {
     objPos headPos;
     playerPosList->getHeadElement(headPos);
 
-    objPos foodPos;
-    mainGameMechsRef->getFoodPos(foodPos);
-
-    if (headPos.x == foodPos.x && headPos.y == foodPos.y)
-    {
-        return true;
+    for(int i = 0; i < 3; i++){
+        objPos foodPos;
+        foodControl->getFoodPos(foodPos, i);
+        if (headPos.x == foodPos.x && headPos.y == foodPos.y){
+            num = i;
+            return true;
+        }
     }
 
     return false;
-
 }
 
 void Player::increasePlayerLength() {
     objPos headPos;
     playerPosList->getHeadElement(headPos);
-
     playerPosList->insertTail(headPos);
-    mainGameMechsRef->generateFood(playerPosList);
 }
 
 bool Player::checkSelfCollision() {
-    
     objPos headPos;
     playerPosList->getHeadElement(headPos);
     
@@ -155,4 +146,39 @@ bool Player::checkSelfCollision() {
         }
     }
     return false;
+}
+
+void Player::specialCharacterCases(int num){
+    objPos headPos;
+    playerPosList->getHeadElement(headPos);
+
+    objPos foodPos;
+    foodControl->getFoodPos(foodPos, num);
+
+    if(foodPos.symbol == 'o'){
+        increasePlayerLength();
+        mainGameMechsRef->incrementScore();
+    }
+
+    else if(foodPos.symbol == '.'){
+        if (playerPosList->getSize() > 5){
+            for(int i = 0; i < 5; i++){
+                playerPosList->removeTail();
+            }
+        }
+        else{
+            for(int i = 0; i < playerPosList->getSize() - 1; i++){
+                playerPosList->removeTail();
+            }
+        }
+        for(int i = 0; i < 5; i++){
+            mainGameMechsRef->incrementScore();
+        }
+    }
+    else{
+        for(int i = 0; i < 5; i++){
+            playerPosList->insertTail(headPos);
+        }
+        mainGameMechsRef->incrementScore();
+    }
 }

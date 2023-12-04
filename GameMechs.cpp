@@ -96,7 +96,7 @@ void GameMechs::incrementScore()
 {
     score ++;
 }
-
+/*
 void GameMechs::generateFood(objPosArrayList* playerBody)
 {
     int flag = 0;
@@ -130,3 +130,4 @@ void GameMechs::getFoodPos(objPos &returnPos)
 {
     returnPos.setObjPos(foodPos.x, foodPos.y, 'o');
 }
+*/
