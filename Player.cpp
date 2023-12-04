@@ -141,7 +141,6 @@ bool Player::checkSelfCollision() {
         playerPosList->getElement(bodyPos, k);
         if (headPos.x == bodyPos.x && headPos.y == bodyPos.y)
         {
-            MacUILib_printf("collision");
             return true;
         }
     }
@@ -167,7 +166,7 @@ void Player::specialCharacterCases(int num){
             }
         }
         else if (playerPosList->getSize() > 1){
-            for(int i = 0; i < playerPosList->getSize(); i++){
+            for(int i = 0; i < playerPosList->getSize()-1; i++){
                 playerPosList->removeTail();
             }
         }
