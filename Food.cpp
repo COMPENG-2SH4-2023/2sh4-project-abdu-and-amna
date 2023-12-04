@@ -12,23 +12,15 @@ Food::~Food(){
 
 void Food::generateFood(objPosArrayList* playerBody)
 {
-    //MacUILib_printf("player body: %d", playerBody->getSize());
-    //MacUILib_printf("test");
+    MacUILib_printf("new\n");
     for(int i = 0; i < 3; i++){
-        //MacUILib_printf("%d\n", i);
         int flag = 0;
-        bool overlap = false;
         while (flag == 0) {
-            //MacUILib_printf("%d\n", flag);
+            bool overlap = false;
             int x = rand() % (GMref->getBoardSizeX() - 2) + 1;
-            //int x = GMref->getBoardSizeX();
-            //MacUILib_printf("coords: %d \n", x);
             int y = rand() % (GMref->getBoardSizeY() - 2) + 1;
-            //MacUILib_printf("coords: %d %d", x, y);
-
             for (int k = 0; k < playerBody->getSize(); k++)
             {
-                //MacUILib_printf("%d", k);
                 objPos tempPos;
                 playerBody->getElement(tempPos, k);
                 if (x == tempPos.x && y == tempPos.y)
@@ -36,13 +28,13 @@ void Food::generateFood(objPosArrayList* playerBody)
                     overlap = true;
                     break;
                 }
-                for(int j = 0; j < i; j++){
-                    objPos foodElement;
-                    foodBucket->getElement(foodElement, j);
-                    if(x == foodElement.x && y == foodElement.y){
-                        overlap = true;
-                        break;
-                    }
+            }
+            for(int j = 0; j < i; j++){
+                objPos foodElement;
+                foodBucket->getElement(foodElement, j);
+                if(x == foodElement.x && y == foodElement.y){  
+                    overlap = true;
+                    break;
                 }
             }
 

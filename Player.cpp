@@ -128,7 +128,7 @@ bool Player::checkFoodConsumption(int &num)
 void Player::increasePlayerLength() {
     objPos headPos;
     playerPosList->getHeadElement(headPos);
-    playerPosList->insertTail(headPos);
+    playerPosList->insertHead(headPos);
 }
 
 bool Player::checkSelfCollision() {
@@ -141,6 +141,7 @@ bool Player::checkSelfCollision() {
         playerPosList->getElement(bodyPos, k);
         if (headPos.x == bodyPos.x && headPos.y == bodyPos.y)
         {
+            MacUILib_printf("collision");
             return true;
         }
     }
@@ -165,17 +166,17 @@ void Player::specialCharacterCases(int num){
                 playerPosList->removeTail();
             }
         }
-        else{
-            for(int i = 0; i < playerPosList->getSize() - 1; i++){
+        else if (playerPosList->getSize() > 1){
+            for(int i = 0; i < playerPosList->getSize(); i++){
                 playerPosList->removeTail();
             }
         }
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 3; i++){
             mainGameMechsRef->incrementScore();
         }
     }
     else{
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 3; i++){
             playerPosList->insertTail(headPos);
         }
         mainGameMechsRef->incrementScore();
