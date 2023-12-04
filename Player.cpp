@@ -63,12 +63,6 @@ void Player::movePlayer()
     if(checkSelfCollision()){
         mainGameMechsRef->setLoseFlag();
     }
-    int num;
-    if (checkFoodConsumption(num))
-    {
-        foodControl->generateFood(playerPosList);
-        specialCharacterCases(num);
-    }
     switch(myDir)
     {
         case UP:
@@ -103,7 +97,11 @@ void Player::movePlayer()
         default:
             break;
     }
-
+    int num;
+    if (checkFoodConsumption(num)){
+        foodControl->generateFood(playerPosList);
+        specialCharacterCases(num);
+    }
     playerPosList->insertHead(headPos);
     playerPosList->removeTail();
 }
@@ -160,14 +158,16 @@ void Player::specialCharacterCases(int num){
     }
 
     else if(foodPos.symbol == '.'){
-        if (playerPosList->getSize() > 5){
-            for(int i = 0; i < 5; i++){
-                playerPosList->removeTail();
+        if (playerPosList->getSize() > 1){
+            if (playerPosList->getSize() > 3){
+                for(int i = 0; i < 3; i++){
+                    playerPosList->removeTail();
+                }
             }
-        }
-        else if (playerPosList->getSize() > 1){
-            for(int i = 0; i < playerPosList->getSize()-1; i++){
-                playerPosList->removeTail();
+            else{
+                for(int i = 0; i < playerPosList->getSize(); i++){
+                    playerPosList->removeTail();
+                }
             }
         }
         for(int i = 0; i < 3; i++){
@@ -176,7 +176,7 @@ void Player::specialCharacterCases(int num){
     }
     else{
         for(int i = 0; i < 3; i++){
-            playerPosList->insertTail(headPos);
+            increasePlayerLength();
         }
         mainGameMechsRef->incrementScore();
     }
