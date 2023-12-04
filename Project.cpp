@@ -71,12 +71,6 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();
 
-    if(myGM->getLoseFlagStatus() == true)
-    {
-        MacUILib_printf("You Lost!\n");
-        myGM -> setExitTrue();
-    }
-
     bool drawn;
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
@@ -129,6 +123,12 @@ void DrawScreen(void)
         printf("\n");
     }
     MacUILib_printf("Score: %d\n", myGM->getScore());
+    if(myGM->getLoseFlagStatus() == true)
+    {
+        MacUILib_clearScreen();
+        MacUILib_printf("\n\n\tYou Lost! Please try again.\n");
+        myGM -> setExitTrue();
+    }
 }
 
 void LoopDelay(void)
@@ -138,10 +138,7 @@ void LoopDelay(void)
 
 
 void CleanUp(void)
-{
-    MacUILib_clearScreen();
-     
-  
+{  
     delete myGM;
     delete myPlayer;
     
